@@ -10,9 +10,8 @@ import javax.persistence.NamedQuery;
 
 @Entity
 @NamedQueries({
-	@NamedQuery(name="Weather.findAll", query="SELECT w FROM Weather w GROUP BY w.city"),
+	@NamedQuery(name="Weather.findAll", query="SELECT w FROM Weather w GROUP BY w.city order by w.timestamp"),
 	@NamedQuery(name="Weather.findByCity", query="SELECT w FROM Weather w where w.city=:pcity"),
-	@NamedQuery(name="Weather.findByProperty", query="SELECT w FROM Weather w where w.city=:pcity")
 })
 public class Weather {
 
@@ -25,8 +24,6 @@ public class Weather {
 	private String timestamp;
 	private String city;
 	private int pressure;
-	private double windspeed;
-	private int winddegree;
 	private String description;
 	
 	public Weather() {
@@ -72,22 +69,6 @@ public class Weather {
 
 	public void setPressure(int pressure) {
 		this.pressure = pressure;
-	}
-
-	public double getWindspeed() {
-		return windspeed;
-	}
-
-	public void setWindspeed(double windspeed) {
-		this.windspeed = windspeed;
-	}
-
-	public int getWinddegree() {
-		return winddegree;
-	}
-
-	public void setWinddegree(int winddegree) {
-		this.winddegree = winddegree;
 	}
 
 	public String getDescription() {

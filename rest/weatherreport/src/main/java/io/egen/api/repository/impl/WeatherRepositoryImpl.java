@@ -36,53 +36,56 @@ public class WeatherRepositoryImpl implements WeatherRepository {
 		}
 	}
 
-	@Override
-	public Optional<String> findByProperty(String city, String property) {
-		TypedQuery<Weather> query = em.createNamedQuery("Weather.findByCity", Weather.class);
-		query.setParameter("pcity", city);
-		List<Weather> users = query.getResultList();
-		if (!users.isEmpty()) {
-			if (property=="Temp")
-				return Optional.of(String.valueOf(users.get(0).getTemperature()));
-		} else {
-			return Optional.empty();
-		}
-		return Optional.empty();
-	}
+	
 	
 	@Override
-	public double findDailyAvg(String city) {
+	public Weather findDailyAvg(String city) {
 		TypedQuery<Weather> query = em.createNamedQuery("Weather.findByCity", Weather.class);
 		query.setParameter("pcity", city);
 		List<Weather> reports = query.getResultList();
+		Weather daily = new Weather();
+		daily.setCity(city);
+		daily.setDescription("Daily Average Weather");
 		if (!reports.isEmpty()) {
-			int i=0,sum = 0;
+			int i=0,sumTemp = 0,sumHum = 0,sumPress = 0;
 			while(i<reports.size())
 			{
-				sum += reports.get(i).getTemperature();
+				sumTemp += reports.get(i).getTemperature();
+				sumHum += reports.get(i).getHumidity();
+				sumPress += reports.get(i).getPressure();
+				i++;
 			}
-			return sum/(reports.size()*24);
-		} else {
-			return 0;
-		}
+			daily.setTemperature(sumTemp/(reports.size()));
+			daily.setHumidity(sumHum/(reports.size()));
+			daily.setPressure(sumPress/(reports.size()));
+		} 
+		return daily;
 	}
 	
 	@Override
-	public double findHourlyAvg(String city) {
+	public Weather findHourlyAvg(String city) {
 		TypedQuery<Weather> query = em.createNamedQuery("Weather.findByCity", Weather.class);
 		query.setParameter("pcity", city);
 		List<Weather> reports = query.getResultList();
+		Weather daily = new Weather();
+		daily.setCity(city);
+		daily.setDescription("Hourly Average Weather");
 		if (!reports.isEmpty()) {
-			int i=0,sum = 0;
+			int i=0,sumTemp = 0,sumHum = 0,sumPress = 0;
 			while(i<reports.size())
 			{
-				sum += reports.get(i).getTemperature();
+				sumTemp += reports.get(i).getTemperature();
+				sumHum += reports.get(i).getHumidity();
+				sumPress += reports.get(i).getPressure();
+				i++;
 			}
-			return sum/(reports.size());
-		} else {
-			return 0;
-		}
+			daily.setTemperature(sumTemp/(reports.size()));
+			daily.setHumidity(sumHum/(reports.size()));
+			daily.setPressure(sumPress/(reports.size()));
+		} 
+		return daily;
 	}
+	
 	@Override
 	public Weather create(Weather w) {
 		em.persist(w);

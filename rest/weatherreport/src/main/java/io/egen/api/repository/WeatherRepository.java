@@ -11,11 +11,9 @@ public interface WeatherRepository {
 
 	public Optional<Weather> findByCity(String city);
 
-	public double findDailyAvg(String city);
+	public Weather findDailyAvg(String city);
 	
-	public double findHourlyAvg(String city);
-	
-	public Optional<String> findByProperty(String city, String property);
+	public Weather findHourlyAvg(String city);
 	
 	public Weather create(Weather user);
 

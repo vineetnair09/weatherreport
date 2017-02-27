@@ -37,15 +37,7 @@ public class WeatherController {
 		return service.findAll();
 	}
 	
-	@RequestMapping(method = RequestMethod.GET, value = URI.PROPERTY)
-	@ApiOperation(value = "Find records by city, property", notes = "Returns a record by city if it exists in the app")
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success"),
-			@ApiResponse(code = 404, message = "Not Found"),
-			@ApiResponse(code = 500, message = "Internal Server Error"), })
-	public String findByProperty(@PathVariable("city") String city,@PathVariable("property") String property){
-		//return city+property;
-		return service.findByProperty(city, property);
-	}
+	
 	
 	
 	@RequestMapping(method = RequestMethod.GET, value = URI.CITY)
@@ -53,8 +45,26 @@ public class WeatherController {
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success"),
 			@ApiResponse(code = 404, message = "Not Found"),
 			@ApiResponse(code = 500, message = "Internal Server Error"), })
-	public Weather findOne(@PathVariable("city") String city) {
+	public Weather findDaily(@PathVariable("city") String city) {
 		return service.findByCity(city);
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = URI.DAILY)
+	@ApiOperation(value = "Find records by city", notes = "Returns a avg daily record by city if it exists in the app")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success"),
+			@ApiResponse(code = 404, message = "Not Found"),
+			@ApiResponse(code = 500, message = "Internal Server Error"), })
+	public Weather findHourly(@PathVariable("city") String city) {
+		return service.findDailyAvg(city);
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = URI.HOURLY)
+	@ApiOperation(value = "Find records by city", notes = "Returns a avg hourly record by city if it exists in the app")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success"),
+			@ApiResponse(code = 404, message = "Not Found"),
+			@ApiResponse(code = 500, message = "Internal Server Error"), })
+	public Weather findOne(@PathVariable("city") String city) {
+		return service.findHourlyAvg(city);
 	}
 
 	

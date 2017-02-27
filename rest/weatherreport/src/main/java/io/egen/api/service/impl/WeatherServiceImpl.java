@@ -56,10 +56,17 @@ public class WeatherServiceImpl implements WeatherService {
 	}
 
 	@Override
-	public String findByProperty(String city, String property) {
+	@Transactional
+	public Weather findHourlyAvg(String city) {
 		// TODO Auto-generated method stub
-		return repository.findByProperty(city, property)
-				.orElseThrow(() -> new NotFoundException("Record with " + city + " does not exist"));
+		return repository.findHourlyAvg(city);
+	}
+	
+	@Override
+	@Transactional
+	public Weather findDailyAvg(String city) {
+		// TODO Auto-generated method stub
+		return repository.findDailyAvg(city);
 	}
 
 }

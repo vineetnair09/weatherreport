@@ -10,8 +10,10 @@ public interface WeatherService {
 
 	public Weather findByCity(String city);
 	
-	public String findByProperty(String city, String property);
-
+	public Weather findHourlyAvg(String city);
+	
+	public Weather findDailyAvg(String city);
+	
 	public Weather create(Weather user);
 
 	public Weather update(String id, Weather user);
