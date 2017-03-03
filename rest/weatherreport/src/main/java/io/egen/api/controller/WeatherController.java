@@ -28,20 +28,26 @@ public class WeatherController {
 	public WeatherController(WeatherService service) {
 		this.service = service;
 	}
-
-	@RequestMapping(method = RequestMethod.GET)
-	@ApiOperation(value = "Find All records", notes = "Returns a list of all records in the report")
+	
+	@RequestMapping(method = RequestMethod.GET, value = URI.ALLCITIES)
+	@ApiOperation(value = "Find list of cities", notes = "Returns a list of all cities in the report")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success"),
 			@ApiResponse(code = 500, message = "Internal Server Error"), })
-	public List<Weather> findAll() {
-		return service.findAll();
+	public String[] findAllCities() {
+		return service.findAllCities();
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = URI.PROPERTY)
+	@ApiOperation(value = "Find particular property of a latest city weather record", notes = "Returns a property of a city record")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success"),
+			@ApiResponse(code = 500, message = "Internal Server Error"), })
+	public String findProperty(@RequestParam String city,@RequestParam String property) {
+		return service.findProperty(city, property);
 	}
 	
 	
-	
-	
 	@RequestMapping(method = RequestMethod.GET, value = URI.CITY)
-	@ApiOperation(value = "Find records by city", notes = "Returns a record by city if it exists in the app")
+	@ApiOperation(value = "Find records by city", notes = "Returns a latest weather record by city if it exists in the app")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success"),
 			@ApiResponse(code = 404, message = "Not Found"),
 			@ApiResponse(code = 500, message = "Internal Server Error"), })
@@ -50,7 +56,7 @@ public class WeatherController {
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = URI.DAILY)
-	@ApiOperation(value = "Find records by city", notes = "Returns a avg daily record by city if it exists in the app")
+	@ApiOperation(value = "Find records by city", notes = "Returns a avg daily weather record by city if it exists in the app")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success"),
 			@ApiResponse(code = 404, message = "Not Found"),
 			@ApiResponse(code = 500, message = "Internal Server Error"), })
@@ -59,7 +65,7 @@ public class WeatherController {
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = URI.HOURLY)
-	@ApiOperation(value = "Find records by city", notes = "Returns a avg hourly record by city if it exists in the app")
+	@ApiOperation(value = "Find records by city", notes = "Returns a avg hourly weather record by city if it exists in the app")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success"),
 			@ApiResponse(code = 404, message = "Not Found"),
 			@ApiResponse(code = 500, message = "Internal Server Error"), })
@@ -69,7 +75,7 @@ public class WeatherController {
 
 	
 	@RequestMapping(method = RequestMethod.POST)
-	@ApiOperation(value = "Create User", notes = "Creates a user in the app with unique email")
+	@ApiOperation(value = "Create record for a city", notes = "Creates a weather record for a city")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success"),
 			@ApiResponse(code = 400, message = "Bad Request"),
 			@ApiResponse(code = 500, message = "Internal Server Error"), })
@@ -77,21 +83,4 @@ public class WeatherController {
 		return service.create(w);
 	}
 
-	@RequestMapping(method = RequestMethod.PUT, value = URI.ID)
-	@ApiOperation(value = "Update User", notes = "Updates an existing user")
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success"),
-			@ApiResponse(code = 404, message = "Not Found"),
-			@ApiResponse(code = 500, message = "Internal Server Error"), })
-	public Weather update(@PathVariable("id") String id, @RequestBody Weather w) {
-		return service.update(id, w);
-	}
-
-	@RequestMapping(method = RequestMethod.DELETE, value = URI.ID)
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success"),
-			@ApiResponse(code = 404, message = "Not Found"),
-			@ApiResponse(code = 500, message = "Internal Server Error"), })
-	@ApiOperation(value = "Delete User", notes = "Deletes an existing user")
-	public void delete(@PathVariable("id") String id) {
-		service.delete(id);
-	}
 }

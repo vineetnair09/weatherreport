@@ -1,6 +1,7 @@
 package io.egen.api.entity;
 
 import java.util.UUID;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,8 +11,8 @@ import javax.persistence.NamedQuery;
 
 @Entity
 @NamedQueries({
-	@NamedQuery(name="Weather.findAll", query="SELECT w FROM Weather w GROUP BY w.city order by w.timestamp"),
-	@NamedQuery(name="Weather.findByCity", query="SELECT w FROM Weather w where w.city=:pcity"),
+	@NamedQuery(name="Weather.findAll", query="SELECT w FROM Weather w GROUP BY w.city order by w.timestamp desc"),
+	@NamedQuery(name="Weather.findByCity", query="SELECT w FROM Weather w where w.city=:pcity order by w.timestamp desc"),
 })
 public class Weather {
 
@@ -21,7 +22,7 @@ public class Weather {
 	private int temperature;
 
 	@Column(unique = true)
-	private String timestamp;
+	private Timestamp timestamp;
 	private String city;
 	private int pressure;
 	private String description;
@@ -79,11 +80,11 @@ public class Weather {
 		this.description = description;
 	}
 
-	public String getTimestamp() {
+	public Timestamp getTimestamp() {
 		return timestamp;
 	}
 
-	public void setTimestamp(String timestamp) {
+	public void setTimestamp(Timestamp timestamp) {
 		this.timestamp = timestamp;
 	}
 }

@@ -9,15 +9,19 @@ public interface WeatherRepository {
 
 	public List<Weather> findAll();
 
+	public String[] findAllCities();
+	
+	public String findProperty(String city, String weather);
+	
 	public Optional<Weather> findByCity(String city);
 
 	public Weather findDailyAvg(String city);
 	
 	public Weather findHourlyAvg(String city);
 	
-	public Weather create(Weather user);
+	public Weather create(Weather report);
 
-	public Weather update(Weather user);
+	public Weather update(Weather report);
 
-	public void delete(Weather user);
+	public void delete(Weather report);
 }

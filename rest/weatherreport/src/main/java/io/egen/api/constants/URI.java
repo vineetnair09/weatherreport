@@ -11,4 +11,8 @@ public final class URI {
 	public static final String HOURLY = "hourly/{city}";
 	
 	public static final String ID = "{id}";
+	
+	public static final String ALLCITIES = "findall";
+	
+	public static final String PROPERTY = "property";
 }

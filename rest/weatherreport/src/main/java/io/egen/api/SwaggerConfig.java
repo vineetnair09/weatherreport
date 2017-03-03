@@ -29,7 +29,7 @@ public class SwaggerConfig {
 
 	private ApiInfo apiInfo() {
 		Contact contact = new Contact("admin", "https://egen.io", "developer@egen.io");
-		ApiInfo info = new ApiInfo("Spring-REST API", "A simple REST API", "1.0.0", "TnC", contact, "MIT",
+		ApiInfo info = new ApiInfo("Weather Report API", "A simple REST API", "1.0.0", "TnC", contact, "MIT",
 				"https://opensource.org/licenses/MIT");
 		return info;
 	}

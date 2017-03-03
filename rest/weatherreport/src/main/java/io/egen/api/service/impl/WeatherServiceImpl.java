@@ -69,4 +69,18 @@ public class WeatherServiceImpl implements WeatherService {
 		return repository.findDailyAvg(city);
 	}
 
+	@Override
+	@Transactional
+	public String[] findAllCities() {
+		// TODO Auto-generated method stub
+		return repository.findAllCities();
+	}
+	
+	@Override
+	@Transactional
+	public String findProperty(String city, String property) {
+		// TODO Auto-generated method stub
+		return repository.findProperty(city, property);
+	}
+
 }

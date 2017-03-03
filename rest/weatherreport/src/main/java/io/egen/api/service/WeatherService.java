@@ -8,15 +8,19 @@ public interface WeatherService {
 
 	public List<Weather> findAll();
 
+	public String[] findAllCities();
+	
+	public String findProperty(String city, String property);
+	
 	public Weather findByCity(String city);
 	
 	public Weather findHourlyAvg(String city);
 	
 	public Weather findDailyAvg(String city);
 	
-	public Weather create(Weather user);
+	public Weather create(Weather report);
 
-	public Weather update(String id, Weather user);
+	public Weather update(String id, Weather report);
 
 	public void delete(String id);
 }
