@@ -1,0 +1,11 @@
+Updated DOCKER_OPTS in /etc/default/docker file
+DOCKER_OPTS='-H tcp://127.0.0.1:2375 -H unix:///var/run/docker.sock'
+
+
+Update /lib/systemd/system/docker.service file with following:
+EnvironmentFile=-/etc/default/docker
+ExecStart=/usr/bin/dockerd $DOCKER_OPTS -H fd://
+
+
+Shell command to stop, rm, and start a new container from Jenkins
+docker stop api || true && docker rm api || true && docker run -d -p 8080:9000 --name api salitrapraveen/api-boot:${BUILD_NUMBER}
